@@ -104,9 +104,9 @@ const clouds = new THREE.Group();
 scene.add(clouds);
 
 const player = {
-  position: new THREE.Vector3(-10, 8, 8),
+  position: new THREE.Vector3(21, 12, -25),
   velocity: new THREE.Vector3(),
-  yaw: Math.PI * 0.72,
+  yaw: Math.PI * 0.25,
   pitch: -0.18,
   onGround: false,
   health: 20,
@@ -540,7 +540,7 @@ function solidAtBody(position) {
 }
 
 function movePlayer(delta) {
-  const forward = new THREE.Vector3(Math.sin(player.yaw), 0, Math.cos(player.yaw));
+  const forward = new THREE.Vector3(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
   const right = new THREE.Vector3(Math.cos(player.yaw), 0, -Math.sin(player.yaw));
   const wish = new THREE.Vector3();
 
@@ -580,7 +580,7 @@ function movePlayer(delta) {
   }
 
   if (player.position.y < -18) {
-    player.position.set(0, 20, 12);
+    player.position.set(21, 14, -25);
     player.velocity.set(0, 0, 0);
   }
 }
@@ -677,11 +677,11 @@ function takeDamage(amount) {
   player.hurtCooldown = blocked ? 0.55 : 0.9;
   statusEl.textContent = blocked ? "Shield blocked most damage" : "Ouch";
   if (player.health <= 0) {
-    player.position.set(-10, 12, 8);
+    player.position.set(21, 12, -25);
     player.velocity.set(0, 0, 0);
     player.health = 20;
     player.hunger = 16;
-    statusEl.textContent = "Respawned at the beach";
+    statusEl.textContent = "Respawned on dry land";
   }
 }
 
@@ -742,7 +742,7 @@ function updateMobs(delta) {
     mob.attackCooldown = Math.max(0, mob.attackCooldown - delta);
     const toPlayer = player.position.clone().sub(mob.mesh.position);
     const distance = toPlayer.length();
-    if (mob.hostile && distance < 18) {
+    if (running && mob.hostile && distance < 18) {
       toPlayer.y = 0;
       if (toPlayer.lengthSq() > 0) toPlayer.normalize();
       mob.mesh.position.x += toPlayer.x * delta * 2.5;
@@ -816,7 +816,7 @@ function updatePortal() {
     statusEl.textContent = "Entered the rift, got a gem";
   } else {
     player.dimension = "overworld";
-    player.position.set(-10, 10, 8);
+    player.position.set(21, 12, -25);
     statusEl.textContent = "Returned to overworld";
   }
   portalCooldown = 3;
