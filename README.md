@@ -4,7 +4,7 @@ Welcome to BlockyGame, a collection of browser-based games developed by Cyclops 
 
 ## 🎮 Games Collection
 
-This repository contains 8 different games, each with unique gameplay mechanics:
+This repository contains 9 different games, each with unique gameplay mechanics:
 
 1. **SpaceShip** - An intense space shooter with multiple weapon types
 2. **Dodge_Games** - A survival game where you dodge blocks and collect power-ups
@@ -14,6 +14,7 @@ This repository contains 8 different games, each with unique gameplay mechanics:
 6. **DuckAdventure** - A grid-based chase game where you collect stars
 7. **Trivia** - An interactive trivia quiz game
 8. **Freeze** - A time-freeze escape game with a moving-only time mechanic
+9. **Blockstorm Java 26.2** - A voxel survival game with mining, crafting, mobs, food, shields, ores, and portals
 
 ## 🚀 How to Play
 
@@ -60,7 +61,8 @@ BlockyGame/
 ├── SigmaSniper/              # FPS sniper game
 ├── DuckAdventure/            # Grid-based chase game
 ├── Trivia/                   # Trivia quiz game
-└── Freeze/                   # Time-freeze escape game
+├── Freeze/                   # Time-freeze escape game
+└── MinecraftJava/            # Blockstorm Java 26.2 voxel survival game
 ```
 
 ## 🎯 Features

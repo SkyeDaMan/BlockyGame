@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blockstorm Java 26.2</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main id="game">
+      <canvas id="world"></canvas>
+      <div id="shade"></div>
+
+      <section id="start-panel" class="panel">
+        <div class="badge">Java 26.2 survival build</div>
+        <h1>Blockstorm Java</h1>
+        <p>Mine, craft, fight, eat, build stations, and tear open chunky portals.</p>
+        <button id="start-button">Drop In</button>
+        <div class="keys">
+          <span>WASD move</span>
+          <span>Mouse look</span>
+          <span>Left click mine/attack</span>
+          <span>Right click use/place</span>
+          <span>1-9 blocks</span>
+          <span>F offhand</span>
+          <span>Space jump</span>
+          <span>Shift sprint</span>
+          <span>E inventory</span>
+          <span>Q offhand too</span>
+          <span>R station use</span>
+          <span>Left click sword</span>
+        </div>
+      </section>
+
+      <div id="hud" aria-hidden="true">
+        <div id="crosshair"></div>
+        <div id="status">Click Drop In to begin</div>
+        <div id="vitals">
+          <div id="health"></div>
+          <div id="hunger"></div>
+          <div id="armor"></div>
+        </div>
+        <div id="offhand"></div>
+        <div id="stats"></div>
+        <canvas id="minimap" width="140" height="140"></canvas>
+        <div id="hotbar"></div>
+      </div>
+
+      <section id="inventory-panel" class="inventory-panel hidden" aria-hidden="true">
+        <div class="inventory-header">
+          <div>
+            <div class="badge">survival-ish</div>
+            <h2>Inventory + Crafting</h2>
+          </div>
+          <button id="close-inventory">Close</button>
+        </div>
+        <div id="inventory-grid"></div>
+        <div id="recipe-list"></div>
+      </section>
+    </main>
+
+    <script type="module" src="./game.js"></script>
+  </body>
+</html>

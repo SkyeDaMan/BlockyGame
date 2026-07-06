@@ -170,6 +170,10 @@
       background: linear-gradient(135deg, #4cc9f0, #4361ee 55%, #0b132b);
       color: #e6f6ff;
     }
+    .thumb--minecraft {
+      background: linear-gradient(135deg, #65b542, #8a5a32 48%, #2f86db);
+      color: #f7ffe8;
+    }
     .thumb--default {
       background: linear-gradient(135deg, #ffb84d, #25f1c4 55%, #1b263b);
     }
@@ -239,7 +243,7 @@
   <script>
     async function detectGames() {
       // fallback when we're on file:// or scraping fails
-      const known = ['Dodge_Games','SpaceShip','DuckAdventure','FlappyPoop','SniperGame','SigmaSniper','Trivia','Freeze'];
+      const known = ['Dodge_Games','SpaceShip','DuckAdventure','FlappyPoop','SniperGame','SigmaSniper','Trivia','Freeze','MinecraftJava'];
       let dirs = [];
 
       // attempt HTTP directory scrape (only works if you host it with dir-indexes enabled)
@@ -336,6 +340,12 @@
           desc: 'Move to advance time, freeze enemies, and find the portal.',
           tags: ['Stealth', 'Puzzle'],
           theme: 'freeze'
+        },
+        MinecraftJava: {
+          title: 'Blockstorm Java 26.2',
+          desc: 'Voxel survival with mining, crafting, mobs, food, shields, portals, and ores.',
+          tags: ['Voxel', 'Survival', 'Java 26.2'],
+          theme: 'minecraft'
         }
       };
 
@@ -378,7 +388,7 @@
             tags.appendChild(pill);
           });
 
-          if (g === 'Freeze') {
+          if (g === 'Freeze' || g === 'MinecraftJava') {
             const pill = document.createElement('span');
             pill.className = 'pill pill--new';
             pill.textContent = 'NEW';
