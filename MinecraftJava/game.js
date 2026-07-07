@@ -508,6 +508,10 @@ function solidAt(x, y, z) {
   return Boolean(type && type !== "water" && type !== "flower");
 }
 
+function waterAt(x, y, z) {
+  return getBlock(x, y, z) === "water";
+}
+
 function intersectsPlayer(x, y, z) {
   return (
     Math.abs(player.position.x - x) < 0.85 &&
@@ -539,10 +543,21 @@ function solidAtBody(position) {
   ].some(([sx, sy, sz]) => solidAt(Math.round(position.x + sx), Math.round(position.y + sy), Math.round(position.z + sz)));
 }
 
+function bodyInWater(position) {
+  return [
+    [0, -0.4, 0],
+    [0.32, -0.9, 0.32],
+    [-0.32, -0.9, 0.32],
+    [0.32, -0.9, -0.32],
+    [-0.32, -0.9, -0.32],
+  ].some(([sx, sy, sz]) => waterAt(Math.round(position.x + sx), Math.round(position.y + sy), Math.round(position.z + sz)));
+}
+
 function movePlayer(delta) {
   const forward = new THREE.Vector3(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
   const right = new THREE.Vector3(Math.cos(player.yaw), 0, -Math.sin(player.yaw));
   const wish = new THREE.Vector3();
+  const inWater = bodyInWater(player.position);
 
   if (keys.has("KeyW")) wish.add(forward);
   if (keys.has("KeyS")) wish.sub(forward);
@@ -551,12 +566,21 @@ function movePlayer(delta) {
   if (wish.lengthSq() > 0) wish.normalize();
 
   const sprint = keys.has("ShiftLeft") ? 1.65 : 1;
-  const speed = 6 * sprint;
+  const speed = (inWater ? 3.4 : 6) * sprint;
   player.velocity.x = wish.x * speed;
   player.velocity.z = wish.z * speed;
 
-  player.velocity.y -= 24 * delta;
-  player.velocity.y = Math.max(player.velocity.y, -32);
+  if (inWater) {
+    player.velocity.y -= 4.5 * delta;
+    player.velocity.y = Math.max(player.velocity.y, -3.2);
+    player.velocity.x *= 0.85;
+    player.velocity.z *= 0.85;
+    if (keys.has("Space")) player.velocity.y = 4.2;
+    if (keys.has("KeyC") || keys.has("ShiftLeft")) player.velocity.y = -3.4;
+  } else {
+    player.velocity.y -= 24 * delta;
+    player.velocity.y = Math.max(player.velocity.y, -32);
+  }
 
   const next = player.position.clone();
   next.x += player.velocity.x * delta;
@@ -576,7 +600,7 @@ function movePlayer(delta) {
     player.velocity.y = 0;
   } else {
     player.position.y = next.y;
-    player.onGround = blockAtPlayerFeet(player.position);
+    player.onGround = inWater || blockAtPlayerFeet(player.position);
   }
 
   if (player.position.y < -18) {
